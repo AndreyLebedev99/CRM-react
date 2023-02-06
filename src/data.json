@@ -1,0 +1,37 @@
+{
+  "requests": [
+    {
+      "name": "Алена Львовна",
+      "phone": "89998887766",
+      "email": "alenka123@mail.ggfasd",
+      "product": "course-wordpress",
+      "status": "inwork",
+      "date": "2023-02-05T20:13:17.031Z",
+      "dateDate": "05.02.2023",
+      "dateTime": "23:13:17",
+      "id": 2
+    },
+    {
+      "name": "Кирилл Вишнёв",
+      "phone": "898881112233",
+      "email": "kirillll@mail.ma",
+      "product": "course-js",
+      "status": "new",
+      "date": "2023-02-05T20:13:17.232Z",
+      "dateDate": "05.02.2023",
+      "dateTime": "23:13:17",
+      "id": 3
+    },
+    {
+      "name": "Денис Денисович",
+      "phone": "89999999999",
+      "email": "dendenovich@gmail.org",
+      "product": "course-php",
+      "status": "new",
+      "date": "2023-02-05T20:13:17.408Z",
+      "dateDate": "05.02.2023",
+      "dateTime": "23:13:17",
+      "id": 4
+    }
+  ]
+}

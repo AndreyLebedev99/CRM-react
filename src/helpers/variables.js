@@ -1,0 +1,1 @@
+export const serverPath = 'https://typhoon-rumbling-giant.glitch.me/'
