@@ -4,9 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import { bodyStyle } from "./bodyStyle";
-import Navbar from "../Navbar";
 import { serverPath } from '../../helpers/variables';
-
 
 const EditPage = () => {
 	bodyStyle()
@@ -21,20 +19,7 @@ const EditPage = () => {
 	const [dateTime, setDateTime] = useState('')
 	const navigate = useNavigate()
 
-	const [filter, setFilter] = useState({ productVal: 'all', statusVal: 'all' })
-
-	useEffect(() => {
-		if (localStorage.getItem('filter')) {
-			setFilter(JSON.parse(localStorage.getItem('filter')))
-		} else {
-			localStorage.setItem('filter', JSON.stringify(filter))
-			setFilter(filter)
-		}
-	}, [])
-
-	const { id } = useParams()
-
-	useEffect(() => {
+	useEffect(()=> {
 		fetch(serverPath + 'requests/' + id)
 			.then(res => res.json())
 			.then(data => {
@@ -49,42 +34,29 @@ const EditPage = () => {
 			})
 	}, [])
 
+	const { id } = useParams()
+
 	const deleteProduct = (id) => {
 		fetch(serverPath + 'requests/' + id, {
 			method: 'DELETE'
-		})
+		}).then(()=> navigate('/table'))
 	}
-
-	const toTablePage = () => {
-		navigate('/table')
-		fetch(
-			`${serverPath}requests?
-			${filter.statusVal === 'all' ? '' : `status=${filter.statusVal}`}&
-			${filter.productVal === 'all' ? '' : `product=${filter.productVal}`}`
-		)
-	}
-
+		
 	const handlSubmit = (e) => {
 		e.preventDefault()
 		const newProduct = {
 			...product, id, name, phone, email, product: productName, status
 		}
-		
+
 		fetch(serverPath + 'requests/' + id, {
 			method: "PUT",// обновить данные
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(newProduct)
-		})
-		
-		toTablePage()
+		}).then(()=> navigate('/table'))
 	}
-
-
 
 	return (
 		<>
-			<Navbar />
-
 			<div className="form-wrapper">
 				<div className="container-fluid">
 
@@ -194,9 +166,9 @@ const EditPage = () => {
 													onChange={(e) => setStatus(e.target.value)}
 													value={status}
 												>
-													<option value="new">Новая</option>
+													<option value="new">Новый</option>
 													<option value="inwork">В работе</option>
-													<option value="complete">Завершена</option>
+													<option value="complete">Завершен</option>
 												</select>
 											</div>
 										</div>
@@ -211,9 +183,7 @@ const EditPage = () => {
 										<button className="btn btn-primary"
 											onClick={() => {
 												deleteProduct(id)
-												toTablePage()
-											}}
-										>Удалить заявку</button>
+											}}>Удалить заявку</button>
 									</div>
 								</div>
 							</form>

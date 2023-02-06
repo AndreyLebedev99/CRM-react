@@ -1,7 +1,7 @@
-import Form from "./Form";
+import Form from "./MainForm";
 import Product from "./Product";
 
-const MainPanel = ({filter, filterProduct, newRequests, isLoading, error}) => {
+const MainPanel = ({ newRequests, isLoading, error}) => {
 
 	const productsTitle = {
 		'course-html': 'Курс по верстке',
@@ -30,14 +30,12 @@ const MainPanel = ({filter, filterProduct, newRequests, isLoading, error}) => {
 		}
 	}
 
-
-
 	return (
 		<div className="main-wrapper">
 			<div className="container-fluid">
 				<div className="admin-heading-1">Все заявки</div>
 
-				<Form filter={filter} filterProduct={filterProduct} />
+				<Form />
 
 				<table className="table fs-14">
 					<thead>

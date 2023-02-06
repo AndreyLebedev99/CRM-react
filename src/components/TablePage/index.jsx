@@ -1,31 +1,20 @@
-import { useState, useEffect } from 'react';
-import { bodyStyle } from "./bodyStyle";
+import { useContext, useEffect, useState } from "react";
 import { serverPath } from "../../helpers/variables";
-import Navbar from "../Navbar";
+import { AppContext } from "../App";
+import { bodyStyle } from "./bodyStyle";
 import LeftPanel from "./LeftPanel";
 import MainPanel from "./MainPanel";
-
 
 const TablePage = () => {
 	bodyStyle()
 
+	const {filter} = useContext(AppContext)
 	const [newRequests, setNewRequests] = useState(null)
 	const [isLoading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
-	const [filter, setFilter] = useState({ productVal: 'all', statusVal: 'all' })
 
 	useEffect(() => {
-		if (localStorage.getItem('filter')) {
-			setFilter(JSON.parse(localStorage.getItem('filter')))
-		} else {
-			localStorage.setItem('filter', JSON.stringify(filter))
-			setFilter(filter)
-		}
-	}, [])
-
-	useEffect(() => {
-		fetch(
-			`${serverPath}requests?
+		fetch(`${serverPath}requests?
 			${filter.statusVal === 'all' ? '' : `status=${filter.statusVal}`}&
 			${filter.productVal === 'all' ? '' : `product=${filter.productVal}`}`
 		).then(res => res.json()
@@ -39,32 +28,14 @@ const TablePage = () => {
 			} else {
 				setError(error.message)
 				setLoading(false)
-				
 			}
 		})
 	}, [filter])
-	
-	const filterProduct = (name, value) => {
-		setFilter(() => {
-			const newFilter = { ...filter, [name]: value }
-			localStorage.setItem('filter', JSON.stringify(newFilter))
-			return newFilter
-		})
-	}
 
 	return (
 		<>
-			<Navbar />
-
-			<LeftPanel filter={filter} filterProduct={filterProduct}/>
-
-			<MainPanel 
-			filter={filter} 
-			filterProduct={filterProduct} 
-			newRequests={newRequests}
-			isLoading={isLoading}
-			error={error}
-			/>
+			<LeftPanel/>
+			<MainPanel newRequests={newRequests} isLoading={isLoading} error={error}/>
 		</>
 	);
 }

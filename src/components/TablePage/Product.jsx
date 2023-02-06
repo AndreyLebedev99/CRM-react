@@ -25,7 +25,6 @@ const Product = (item) => {
 				<Link to={`/edit/${id}`}>Редактировать</Link>
 			</td>
 		</tr>
-
 	);
 }
 

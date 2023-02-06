@@ -4,8 +4,8 @@
       "name": "Алена Львовна",
       "phone": "89998887766",
       "email": "alenka123@mail.ggfasd",
-      "product": "course-wordpress",
-      "status": "inwork",
+      "product": "course-vue",
+      "status": "new",
       "date": "2023-02-05T20:13:17.031Z",
       "dateDate": "05.02.2023",
       "dateTime": "23:13:17",
@@ -32,6 +32,28 @@
       "dateDate": "05.02.2023",
       "dateTime": "23:13:17",
       "id": 4
+    },
+    {
+      "name": "Кирилл Вишнёв",
+      "phone": "898881112233",
+      "email": "kirillll@mail.ma",
+      "product": "course-js",
+      "status": "new",
+      "date": "2023-02-06T20:03:33.251Z",
+      "dateDate": "06.02.2023",
+      "dateTime": "23:03:33",
+      "id": 5
+    },
+    {
+      "name": "Пётр Первый",
+      "phone": "89123123123",
+      "email": "petrperviy@vk.lo",
+      "product": "course-php",
+      "status": "new",
+      "date": "2023-02-06T20:03:33.408Z",
+      "dateDate": "06.02.2023",
+      "dateTime": "23:03:33",
+      "id": 6
     }
   ]
 }

@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { serverPath } from "../../helpers/variables";
 import avatar from './../../img/avatar-128.jpg'
-import { updateActiveStatusLinkc } from './updateActiveStatusLinkc';
+import { AppContext } from '../App';
 
-const LeftPanel = ({filter, filterProduct}) => {
+const LeftPanel = () => {
+
+	const { filter, filterProduct } = useContext(AppContext)
 
 	const [number, setNumber] = useState()
 
@@ -13,17 +16,7 @@ const LeftPanel = ({filter, filterProduct}) => {
 			.then(data => {
 				setNumber(data.filter(item => item.status === 'new').length)
 			})
-	}, [filter])	
-
-	const filteredProduct = (value) => {
-		const leftStatusBar = Array.from(document.querySelectorAll('.left-panel__navigation li a'))
-		leftStatusBar.forEach((link) => {
-			link.classList.remove('active')
-			if (link.dataset.value === value) link.classList.add('active')
-		})
-	}
-
-	filteredProduct(filter.statusVal)
+	}, [])
 
 	return (
 		<div className="left-panel blue-skin">
@@ -39,18 +32,22 @@ const LeftPanel = ({filter, filterProduct}) => {
 			</div>
 			<div className="left-panel__navigation"
 				onClick={(e) => {
-					updateActiveStatusLinkc(e.target.dataset.value)
 					filterProduct('statusVal', e.target.dataset.value)
-				}}
-			>
+				}}>
 				<div className="left-panel__navigation-title">Заявки</div>
 				<ul>
-					<li><a data-value="all" data-role="left-status" href="#" >Все вместе</a></li>
-					<li><a data-value="new" data-role="left-status" href="#" >Новые<div className="badge" id="badge-new">
-						{number}
-					</div></a></li>
-					<li><a data-value="inwork" data-role="left-status" href="#">В работе</a></li>
-					<li><a data-value="complete" data-role="left-status" href="#">Завершенные</a></li>
+					<li>
+						<Link to='' data-value="all" data-role="left-status" className={filter.statusVal === 'all' ? 'active' : ''}>Все вместе</Link>
+					</li>
+					<li>
+						<Link to='' data-value="new" data-role="left-status" className={filter.statusVal === 'new' ? 'active' : ''}>Новые<div className="badge" id="badge-new">{number}</div></Link>
+					</li>
+					<li>
+						<Link to='' data-value="inwork" data-role="left-status" className={filter.statusVal === 'inwork' ? 'active' : ''}>В работе</Link>
+					</li>
+					<li>
+						<Link to='' data-value="complete" data-role="left-status" className={filter.statusVal === 'complete' ? 'active' : ''}>Завершенные</Link>
+					</li>
 				</ul>
 			</div>
 		</div>
