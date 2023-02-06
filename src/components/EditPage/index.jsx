@@ -20,6 +20,7 @@ const EditPage = () => {
 	const [dateDate, setDateDate] = useState('')
 	const [dateTime, setDateTime] = useState('')
 	const navigate = useNavigate()
+	const [filter, setFilter] = useState({ productVal: 'all', statusVal: 'all' })
 
 	const { id } = useParams()
 
@@ -36,6 +37,15 @@ const EditPage = () => {
 				setDateDate(data.dateDate)
 				setDateTime(data.dateTime)
 			})
+	}, [])
+
+	useEffect(() => {
+		if (localStorage.getItem('filter')) {
+			setFilter(JSON.parse(localStorage.getItem('filter')))
+		} else {
+			localStorage.setItem('filter', JSON.stringify(filter))
+			setFilter(filter)
+		}
 	}, [])
 
 	const deleteProduct = (id) => {
