@@ -20,7 +20,17 @@ const EditPage = () => {
 	const [dateDate, setDateDate] = useState('')
 	const [dateTime, setDateTime] = useState('')
 	const navigate = useNavigate()
+
 	const [filter, setFilter] = useState({ productVal: 'all', statusVal: 'all' })
+
+	useEffect(() => {
+		if (localStorage.getItem('filter')) {
+			setFilter(JSON.parse(localStorage.getItem('filter')))
+		} else {
+			localStorage.setItem('filter', JSON.stringify(filter))
+			setFilter(filter)
+		}
+	}, [])
 
 	const { id } = useParams()
 
@@ -39,15 +49,6 @@ const EditPage = () => {
 			})
 	}, [])
 
-	useEffect(() => {
-		if (localStorage.getItem('filter')) {
-			setFilter(JSON.parse(localStorage.getItem('filter')))
-		} else {
-			localStorage.setItem('filter', JSON.stringify(filter))
-			setFilter(filter)
-		}
-	}, [])
-
 	const deleteProduct = (id) => {
 		fetch(serverPath + 'requests/' + id, {
 			method: 'DELETE'
@@ -56,6 +57,11 @@ const EditPage = () => {
 
 	const toTablePage = () => {
 		navigate('/table')
+		fetch(
+			`${serverPath}requests?
+			${filter.statusVal === 'all' ? '' : `status=${filter.statusVal}`}&
+			${filter.productVal === 'all' ? '' : `product=${filter.productVal}`}`
+		)
 	}
 
 	const handlSubmit = (e) => {

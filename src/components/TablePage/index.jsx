@@ -9,10 +9,10 @@ import MainPanel from "./MainPanel";
 const TablePage = () => {
 	bodyStyle()
 
-	const [filter, setFilter] = useState({ productVal: 'all', statusVal: 'all' })
 	const [newRequests, setNewRequests] = useState(null)
 	const [isLoading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
+	const [filter, setFilter] = useState({ productVal: 'all', statusVal: 'all' })
 
 	useEffect(() => {
 		if (localStorage.getItem('filter')) {
